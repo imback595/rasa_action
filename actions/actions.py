@@ -1,38 +1,9 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
-
-
-# This is a simple example for a custom action which utters "Hello World!"
-
-# from typing import Any, Text, Dict, List
-#
-# from rasa_sdk import Action, Tracker
-# from rasa_sdk.executor import CollectingDispatcher
-#
-#
-# class ActionHelloWorld(Action):
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         dispatcher.utter_message(text="Hello World!")
-#
-#         return []
-
-from typing import Dict, Text, Any, List, Union
+from typing import Dict, Text, Any, List
 
 from rasa_sdk import Tracker, Action
-from rasa_sdk.events import UserUtteranceReverted, Restarted, SlotSet
+from rasa_sdk.events import UserUtteranceReverted, Restarted
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormAction
-import re
 
 from actions import ChatApis
 from actions.WeatherApis import get_weather_by_day
@@ -44,64 +15,13 @@ from requests import (
 )
 
 
-
-
-class NumberForm(FormAction):
-    """Example of a custom form action"""
+# action weather_form
+class ActionQueryWeatherForm(Action):
 
     def name(self) -> Text:
         """Unique identifier of the form"""
 
-        return "number_form"
-
-    @staticmethod
-    def required_slots(tracker: Tracker) -> List[Text]:
-        """A list of required slots that the form has to fill"""
-        return ["type", "number", "business"]
-
-    def slot_mappings(self) -> Dict[Text, Union[Dict, List[Dict]]]:
-        """A dictionary to map required slots to
-            - an extracted entity
-            - intent: value pairs
-            - a whole message
-            or a list of them, where a first match will be picked"""
-
-        return {
-            "type": self.from_entity(entity="type", not_intent="chitchat"),
-            "number": self.from_entity(entity="number", not_intent="chitchat"),
-            "business": [
-                self.from_entity(
-                    entity="business", intent=["inform", "request_number"]
-                ),
-                self.from_entity(entity="business"),
-            ],
-        }
-
-    def submit(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
-    ) -> List[Dict]:
-        """Define what the form has to do
-            after all required slots are filled"""
-        number_type = tracker.get_slot('type')
-        number = tracker.get_slot('number')
-        business = tracker.get_slot('business')
-        if not business:
-            dispatcher.utter_message(text="您要查询的{}{}所属人为张三，湖南长沙人，现在就职于地球村物业管理有限公司。".format(number_type, number))
-            return []
-
-        dispatcher.utter_message(text="你要查询{}为{}的{}为：balabalabalabalabala。".format(number_type, number, business))
-        return [SlotSet("business", None)]
-
-
-class WeatherForm(FormAction):
-
-    def name(self) -> Text:
-        """Unique identifier of the form"""
-
-        return "weather_form"
+        return "action_query_weather_form"
 
     @staticmethod
     def required_slots(tracker: Tracker) -> List[Text]:
@@ -109,12 +29,11 @@ class WeatherForm(FormAction):
 
         return ["date_time", "address"]
 
-    def submit(
+    def run(
             self,
             dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: Dict[Text, Any],
-    ) -> List[Dict]:
+            domain: Dict[Text, Any], ) -> List[Dict]:
         """Define what the form has to do
             after all required slots are filled"""
         address = tracker.get_slot('address')
@@ -123,11 +42,13 @@ class WeatherForm(FormAction):
         date_time_number = text_date_to_number_date(date_time)
 
         if isinstance(date_time_number, str):  # parse date_time failed
-            dispatcher.utter_message("暂不支持查询 {} 的天气".format([address, date_time_number]))
+            dispatcher.utter_message("暂不支持查询 {} 的天气"
+                                     .format([address, date_time_number]));
         else:
-            weather_data = get_text_weather_date(address, date_time, date_time_number)
-            dispatcher.utter_message(weather_data)
-        return []
+            weather_data = get_text_weather_date(address,
+                                                 date_time, date_time_number)
+            dispatcher.utter_message(weather_data);
+        return [Restarted()]
 
 
 def get_text_weather_date(address, date_time, date_time_number):
@@ -180,6 +101,8 @@ def text_date_to_number_date(text_date):
         return text_date
     if text_date == "大前天":
         return text_date
+
+    # action_default_fallback
 
 
 class ActionDefaultFallback(Action):
