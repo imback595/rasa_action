@@ -102,6 +102,7 @@ def text_date_to_number_date(text_date):
     if text_date == "大前天":
         return text_date
 
+
     # action_default_fallback
 
 class ActionDefaultFallback(Action):
