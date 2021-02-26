@@ -73,7 +73,6 @@ def get_text_weather_date(address, date_time, date_time_number):
 
     return text_message
 
-
 def text_date_to_number_date(text_date):
     if text_date == "今天":
         return 0
