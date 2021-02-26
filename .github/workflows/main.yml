@@ -33,7 +33,7 @@ jobs:
         
     - name: Publish to Docker Repository
       id: buildAndPushImage
-      uses: RasaHQ/action-server-gha@main
+      uses: RasaHQ/action-server-gha@v1
       with:
         registry: registry.cn-guangzhou.aliyuncs.com
         repository: lizhuolin/rasa-action
