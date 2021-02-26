@@ -104,7 +104,6 @@ def text_date_to_number_date(text_date):
 
     # action_default_fallback
 
-
 class ActionDefaultFallback(Action):
     """Executes the fallback action and goes back to the previous state
     of the dialogue"""
