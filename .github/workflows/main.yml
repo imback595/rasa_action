@@ -16,9 +16,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Login in Ali Docker Repository
-      run: |
-        docker login -u ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }} -p ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }} registry.cn-guangzhou.aliyuncs.com
+    # - name: Login in Ali Docker Repository
+      # run: |
+        # docker login -u ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }} -p ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }} registry.cn-guangzhou.aliyuncs.com
     # - id: action_server
       # name: Build an action server with a custom actions
       # uses: RasaHQ/action-server-gha@main
@@ -41,8 +41,8 @@ jobs:
         docker_registry: 'registry.cn-guangzhou.aliyuncs.com'
         docker_registry_login: ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }}
         docker_registry_password: ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }}
-        username: ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }} # 用户名
-        password: ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }} # 密码
+        # username: ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }} # 用户名
+        # password: ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }} # 密码
         # More details about github context:
         # https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
         #
