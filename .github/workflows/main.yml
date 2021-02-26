@@ -39,6 +39,8 @@ jobs:
         docker_registry: 'registry.cn-guangzhou.aliyuncs.com'
         docker_registry_login: ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }}
         docker_registry_password: ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }}
+        username: ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }} # 用户名
+        password: ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }} # 密码
         # More details about github context:
         # https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
         #
