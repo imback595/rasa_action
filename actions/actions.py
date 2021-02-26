@@ -40,6 +40,7 @@ class ActionQueryWeatherForm(Action):
         date_time = tracker.get_slot('date_time')
 
         date_time_number = text_date_to_number_date(date_time)
+		
 
         if isinstance(date_time_number, str):  # parse date_time failed
             dispatcher.utter_message("暂不支持查询 {} 的天气"
