@@ -30,3 +30,14 @@ jobs:
         #
         # github.sha - The commit SHA that triggered the workflow run
         docker_image_tag: ${{ github.sha }}
+        
+    - name: Publish to Docker Repository
+      id: buildAndPushImage
+      uses: RasaHQ/action-server-gha@main
+      with:
+        registry: registry.cn-guangzhou.aliyuncs.com
+        repository: lizhuolin/rasa-action
+        username: ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }} # 用户名
+        password: ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }} # 密码
+        tags: 'v1.0'
+        #dockerfile: './Dockerfile'
