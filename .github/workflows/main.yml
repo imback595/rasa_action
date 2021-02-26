@@ -37,7 +37,7 @@ jobs:
       uses: RasaHQ/action-server-gha@main
       # Full list of parameters: https://github.com/RasaHQ/action-server-gha/tree/master#input-arguments
       with:
-        docker_image_name: 'lizhuolin/rasa-action'
+        docker_image_name: 'lzllab/rasa-action'
         docker_registry: 'registry.cn-guangzhou.aliyuncs.com'
         docker_registry_login: ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }}
         docker_registry_password: ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }}
