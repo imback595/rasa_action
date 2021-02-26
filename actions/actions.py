@@ -71,7 +71,6 @@ def get_text_weather_date(address, date_time, date_time_number):
             result['result']["low"],
         )
 
-
     return text_message
 
 def text_date_to_number_date(text_date):
