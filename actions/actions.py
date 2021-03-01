@@ -29,27 +29,33 @@ class ActionQueryWeatherForm(Action):
 
         return ["date_time", "address"]
 
-    def run(
-            self,
-            dispatcher: CollectingDispatcher,
+    def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: Dict[Text, Any], ) -> List[Dict]:
-        """Define what the form has to do
-            after all required slots are filled"""
-        address = tracker.get_slot('address')
-        date_time = tracker.get_slot('date_time')
+            domain: Dict[Text, Any]) -> Text:
+        dispatcher.utter_message(text="好的，但先调试一下action")
 
-        date_time_number = text_date_to_number_date(date_time)
-		
+        return []
 
-        if isinstance(date_time_number, str):  # parse date_time failed
-            dispatcher.utter_message("暂不支持查询 {} 的天气"
-                                     .format([address, date_time_number]));
-        else:
-            weather_data = get_text_weather_date(address,
-                                                 date_time, date_time_number)
-            dispatcher.utter_message(weather_data);
-        return [Restarted()]
+    # def run(
+    #         self,
+    #         dispatcher: CollectingDispatcher,
+    #         tracker: Tracker,
+    #         domain: Dict[Text, Any], ) -> List[Dict]:
+    #     """Define what the form has to do
+    #         after all required slots are filled"""
+    #     address = tracker.get_slot('address')
+    #     date_time = tracker.get_slot('date_time')
+    #
+    #     date_time_number = text_date_to_number_date(date_time)
+    #
+    #     if isinstance(date_time_number, str):  # parse date_time failed
+    #         dispatcher.utter_message("暂不支持查询 {} 的天气"
+    #                                  .format([address, date_time_number]));
+    #     else:
+    #         weather_data = get_text_weather_date(address,
+    #                                              date_time, date_time_number)
+    #         dispatcher.utter_message(weather_data);
+    #     return [Restarted()]
 
 
 def get_text_weather_date(address, date_time, date_time_number):
@@ -72,6 +78,7 @@ def get_text_weather_date(address, date_time, date_time_number):
         )
 
     return text_message
+
 
 def text_date_to_number_date(text_date):
     if text_date == "今天":
@@ -102,8 +109,8 @@ def text_date_to_number_date(text_date):
     if text_date == "大前天":
         return text_date
 
-
     # action_default_fallback
+
 
 class ActionDefaultFallback(Action):
     """Executes the fallback action and goes back to the previous state
