@@ -2,7 +2,7 @@ from py2neo import Graph,Node,Relationship
 
 # graph=Graph("http://localhost:7474",auth=("neo4j","123456"))
 
-
+#
 
 def get_Scheme(user_list):
     graph = Graph("http://192.168.168.250:7474", auth=("neo4j", "123456"))

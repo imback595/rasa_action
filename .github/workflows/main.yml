@@ -16,11 +16,13 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: pip something
+    - name: pip launchpadlib
       run: |
         pip install launchpadlib
+    - name: pip six
       run: |
         pip install six
+    - name: pip py2neo
       run: |
         python -m pip install py2neo==2021.0.1
     # - name: Login in Ali Docker Repository
