@@ -19,7 +19,11 @@ jobs:
     - name: pip something
         run: |
             pip3 install launchpadlib
+    - name: pip something
+        run: |
             pip3 install six
+    - name: pip something
+        run: |       
             python -m pip3 install py2neo==2021.0.1
    
     # - name: Login in Ali Docker Repository
