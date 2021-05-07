@@ -24,7 +24,7 @@ jobs:
         pip3 install six
     - name: pip py2neo
       run: |
-        python -m pip3 install py2neo==2021.0.1
+        pip3 install py2neo==2021.0.1
     # - name: Login in Ali Docker Repository
       # run: |
         # docker login -u ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }} -p ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }} registry.cn-guangzhou.aliyuncs.com
