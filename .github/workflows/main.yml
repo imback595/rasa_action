@@ -16,6 +16,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: pip something
+      run: |
+        python -m pip install py2neo
     # - name: Login in Ali Docker Repository
       # run: |
         # docker login -u ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }} -p ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }} registry.cn-guangzhou.aliyuncs.com
@@ -45,7 +48,7 @@ jobs:
         # https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context
         #
         # github.sha - The commit SHA that triggered the workflow run
-        docker_image_tag: 'v10.0'
+        docker_image_tag: 'v100.0'
 
       # id: buildAndPushImage
       # uses: RasaHQ/action-server-gha@main
